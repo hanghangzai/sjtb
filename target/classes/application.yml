@@ -1,0 +1,35 @@
+server:
+  port: 8088
+
+#公共配置与profiles选择无关
+mybatis:
+  typeAliasesPackage: com.lh.sjtb.entity
+  mapperLocations: classpath:mapper/*.xml
+
+
+#开发配置
+spring:
+  datasource:
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: sftb
+    password: 123456
+    virtual-host: sftb_virtual
+  application:
+    name: spring-boot-rabbitmq
+
+ocrldatasource:
+    url: jdbc:oracle:thin:@192.168.0.243/ORCL
+    username: legalhotlin
+    password: legalhotlin
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+
+mysqldatasource:
+       url: jdbc:mysql://192.168.0.244:3306/legal_service?useUnicode=true&characterEncoding=utf-8
+       username: root
+       password: root
+       driver-class-name: com.mysql.jdbc.Driver
+
