@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lh.sjtb.dao.WorkListDao" >
+
+    <select id="findWorkList" resultType="java.util.Map">
+        SELECT * FROM worklist
+    </select>
+
+
+    <select id="findWorkOrderList" resultType="java.util.Map">
+        SELECT * FROM
+         (
+          SELECT A.*, ROWNUM RN
+            FROM (SELECT * FROM WORKORDER) A
+           )
+        WHERE RN BETWEEN 0 AND 20
+    </select>
+
+    <select id="findWorkOrderTBList" resultType="java.util.Map">
+       SELECT
+          WORKORDER.ORDERID,
+          WORKORDER.LDRXM, WORKORDER.LDRXB,
+          WORKORDER.LXDZ, WORKORDER.DH,
+          WORKORDER.YWLX, WORKORDER.SQLB,
+          WORKORDER.SQZT,WORKORDER.SQNR,
+          WORKORDER.ORDERSTATUS
+      FROM WORKORDER WHERE TBZT is NULL
+    </select>
+
+    <update id="updateWorkOrderByOrderId" parameterType="java.lang.String">
+       UPDATE WORKORDER SET
+        TBZT = 1
+        WHERE ORDERID = #{orderid}
+    </update>
+
+    <insert id="insertWorkList" parameterType="java.util.Map">
+       insert into worklist(oid,consultant_name,consultant_sex,consultant_area,consultation_number,business_type,appeal_type,appeal_title,appeal_content,status)
+       values(#{oid}, #{consultant_name} ,#{consultant_sex},#{consultant_area},#{consultation_number},#{business_type},#{appeal_type},#{appeal_title},#{appeal_content},#{status});
+    </insert>
+
+</mapper>
